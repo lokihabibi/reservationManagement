@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5>Manage Users</h5>
+      <button class="btn btn-primary">Add User</button>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(user of users; track $index) 
+          {
+
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

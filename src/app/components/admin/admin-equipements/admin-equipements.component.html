@@ -1,0 +1,94 @@
+<div class="equipment-container">
+    <!-- Header Section -->
+    <div class="section-header">
+        <h2>Equipment Management</h2>
+        <button class="add-btn" (click)="openAddModal()">
+            <i class="fas fa-plus"></i> Add Equipment
+        </button>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="search-filter">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterEquipments()" placeholder="Search equipment...">
+        </div>
+        <div class="filter-box">
+            <select [(ngModel)]="categoryFilter" (ngModelChange)="filterEquipments()">
+                <option value="">All Categories</option>
+                <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Equipment List -->
+    <div class="equipment-list">
+        @for(equipment of filteredEquipments; track equipment.id) {
+            <div class="equipment-card">
+                <div class="equipment-image">
+                    <img [src]="equipment.image" [alt]="equipment.name">
+                </div>
+                <div class="equipment-info">
+                    <h3>{{equipment.name}}</h3>
+                    <p class="category">{{equipment.category}}</p>
+                    <p class="description">{{equipment.description}}</p>
+                    <div class="status" [class.available]="equipment.status === 'Available'"
+                        [class.unavailable]="equipment.status === 'Unavailable'">
+                        {{equipment.status}}
+                    </div>
+                </div>
+                <div class="equipment-actions">
+                    <button class="edit-btn" (click)="editEquipment(equipment)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="delete-btn" (click)="deleteEquipment(equipment.id)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{{editMode ? 'Edit' : 'Add'}} Equipment</h3>
+            <button class="close-btn" (click)="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form [formGroup]="equipmentForm" (ngSubmit)="saveEquipment()">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" formControlName="name" placeholder="Equipment name">
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select formControlName="category">
+                    <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea formControlName="description" placeholder="Equipment description"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select formControlName="status">
+                    <option value="Available">Available</option>
+                    <option value="Unavailable">Unavailable</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" formControlName="image" placeholder="Image URL">
+            </div>
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+                <button type="submit" class="save-btn" [disabled]="!equipmentForm.valid">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

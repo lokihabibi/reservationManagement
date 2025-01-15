@@ -1,0 +1,52 @@
+<form class="search-form" (ngSubmit)="onSearch()" #searchForm="ngForm">
+    <div class="search-group">
+        <i class="fas fa-map-marker-alt"></i>
+        <select 
+            [(ngModel)]="filters.city" 
+            name="city" 
+            aria-label="Sélectionner une ville"
+            class="form-control"
+            required>
+            <option value="" disabled>Choisir une ville</option>
+            @for (city of cities; track city.id) {
+                <option [value]="city.id">{{ city.name }}</option>
+            }
+        </select>
+    </div>
+    
+    <div class="search-group">
+        <i class="fas fa-futbol"></i>
+        <select 
+            [(ngModel)]="filters.sport" 
+            name="sport" 
+            aria-label="Sélectionner un sport"
+            class="form-control"
+            required>
+            <option value="" disabled>Type de sport</option>
+            @for (sport of sports; track sport.id) {
+                <option [value]="sport.id">{{ sport.name }}</option>
+            }
+        </select>
+    </div>
+    
+    <div class="search-group">
+        <i class="fas fa-calendar-alt"></i>
+        <input 
+            type="date" 
+            [(ngModel)]="filters.date" 
+            name="date" 
+            [min]="minDate"
+            class="form-control"
+            aria-label="Sélectionner une date"
+            required
+        >
+    </div>
+    
+    <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="!searchForm.form.valid">
+        <i class="fas fa-search"></i>
+        <span>Rechercher</span>
+    </button>
+</form>

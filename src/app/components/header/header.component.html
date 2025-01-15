@@ -1,0 +1,79 @@
+<header class="header" [class.scrolled]="isScrolled">
+
+    <div class="container">
+        <div class="header-content">
+            <a routerLink="/" class="logo-link">
+                <img 
+                    src="/projectlogo1.jpg" 
+                    alt="Spofun Logo" 
+                    class="logo" 
+                    width="120" 
+                    height="40"
+                >
+            </a>
+            
+            <button 
+                class="mobile-menu-toggle" 
+                (click)="toggleMobileMenu()" 
+                [attr.aria-expanded]="isMobileMenuOpen"
+                aria-controls="main-nav"
+                aria-label="Toggle navigation menu"
+            >
+                <i [class]="isMobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
+            </button>
+            
+            <nav 
+                id="main-nav"
+                class="nav" 
+                [class.open]="isMobileMenuOpen"
+                role="navigation"
+                aria-label="Main navigation"
+            >
+                <a 
+                    routerLink="/" 
+                    class="nav-link" 
+                    routerLinkActive="active" 
+                    [routerLinkActiveOptions]="{exact: true}"
+                >
+                    Accueil
+                </a>
+                <a 
+                    routerLink="/how-it-works" 
+                    class="nav-link" 
+                    routerLinkActive="active"
+                >
+                    Comment ça marche
+                </a>
+                <a 
+                    routerLink="/terrain" 
+                    class="nav-link" 
+                    routerLinkActive="active"
+                >
+                    Terrains
+                </a>
+                <a 
+                    routerLink="/equipment" 
+                    class="nav-link" 
+                    routerLinkActive="active"
+                >
+                    Équipements
+                </a>
+                <a 
+                    routerLink="/login" 
+                    class="nav-link" 
+                    routerLinkActive="active"
+                >
+                    Connexion
+                </a>
+                <button 
+                    class="theme-toggle" 
+                    (click)="toggleTheme()" 
+                    [attr.aria-label]="isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'"
+                >
+                    <i class="fas" [class.fa-sun]="isDarkTheme" [class.fa-moon]="!isDarkTheme"></i>
+                    <span class="visually-hidden">{{ isDarkTheme ? 'Light Mode' : 'Dark Mode' }}</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+</header>

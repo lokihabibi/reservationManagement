@@ -1,0 +1,50 @@
+
+
+<div class="equipment-section">
+  <div class="container">
+    <h2 class="section-title">Sports Equipment</h2>
+    <p class="section-description">Discover our high-quality sports equipment for rent</p>
+
+    <div class="equipment-slider-container">
+      <button class="nav-button prev" (click)="slidePrev()" [disabled]="currentIndex === 0">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <div class="equipment-slider" #sliderContainer>
+        <div class="equipment-track" [style.transform]="'translateX(' + (-currentIndex * 100) + '%)'">
+          <div class="equipment-card" *ngFor="let equipment of equipments">
+            <div class="equipment-image">
+              <img [src]="equipment.image" [alt]="equipment.name">
+              <div class="equipment-status" [class.available]="equipment.available">
+                {{ equipment.available ? 'Available' : 'Not Available' }}
+              </div>
+            </div>
+            <div class="equipment-content">
+              <h3 class="equipment-name">{{ equipment.name }}</h3>
+              <p class="equipment-description">{{ equipment.description }}</p>
+              <div class="equipment-footer">
+                <span class="equipment-price">{{ equipment.price }}€/hour</span>
+                <button class="rent-button" [disabled]="!equipment.available">
+                  {{ equipment.available ? 'Rent Now' : 'Not Available' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="nav-button next" (click)="slideNext()" [disabled]="currentIndex >= equipments.length - itemsToShow">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="slider-dots">
+      <button 
+        *ngFor="let dot of getDotArray(); let i = index" 
+        class="dot" 
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)">
+      </button>
+    </div>
+  </div>
+</div>

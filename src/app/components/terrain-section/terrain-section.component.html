@@ -1,0 +1,48 @@
+<section class="venues-section">
+    <div class="container">
+        <h2 class="section-title">L'AVENUE SPORTIVE RECOMMANDÉE</h2>
+        
+        <div class="venues-slider">
+            <button 
+                class="slider-arrow prev" 
+                (click)="previousSlide()"
+                [disabled]="currentIndex === 0"
+                aria-label="Previous venues"
+            >
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="venues-container" #venuesContainer>
+                <div class="venues-track" [style.transform]="'translateX(' + -currentIndex * (100/3) + '%)'">
+                    @for (venue of venues; track venue.id) {
+                        <div class="venue-slide" [attr.aria-hidden]="!isSlideVisible(venue)">
+                            <app-venue-card 
+                                [venue]="venue"
+                            ></app-venue-card>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <button 
+                class="slider-arrow next" 
+                (click)="nextSlide()"
+                [disabled]="currentIndex >= maxIndex"
+                aria-label="Next venues"
+            >
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="slider-dots">
+            @for (dot of getDotArray(); track $index) {
+                <button 
+                    class="dot"
+                    [class.active]="currentIndex === $index"
+                    (click)="goToSlide($index)"
+                    [attr.aria-label]="'Go to slide ' + ($index + 1)"
+                ></button>
+            }
+        </div>
+    </div>
+</section>
