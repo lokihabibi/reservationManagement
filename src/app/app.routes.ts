@@ -8,6 +8,9 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
 import { AdminEquipementsComponent } from './components/admin/admin-equipements/admin-equipements.component';
+import { ManagerDashboardComponent } from './components/manager/manager-dashboard/manager-dashboard.component';
+import { ManagerEquipementsComponent } from './components/manager/manager-equipements/manager-equipements.component';
+import { ManagerHomeComponent } from './components/manager/manager-home/manager-home.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +43,15 @@ export const routes: Routes = [
     children: [
       { path: 'users', component: AdminUsersComponent },
       { path: 'equipements', component: AdminEquipementsComponent }
+    ]
+  },
+  {
+    path: 'manager',
+    component: ManagerDashboardComponent,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: ManagerHomeComponent },
+      { path: 'equipements', component: ManagerEquipementsComponent }
     ]
   }
 ];
